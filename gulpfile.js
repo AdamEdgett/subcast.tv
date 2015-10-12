@@ -4,7 +4,9 @@ var connect = require('gulp-connect');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var gzip = require('gulp-gzip');
-var babel = require('gulp-babel');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var babelify = require('babelify');
 
 function swallowError(error) {
   console.log(error.toString());
@@ -14,14 +16,33 @@ function swallowError(error) {
 
 var paths = {
   less: 'src/less/**/*.less',
-  js: 'src/js/**/*.js'
+  js: [ 'src/js/**/*.js', 'src/js/**/*.jsx' ]
 };
 
-gulp.task('js', function() {
-  return gulp.src(paths.js)
-  .pipe(babel())
+gulp.task('js', ['build-sender', 'build-receiver']);
+
+gulp.task('build-sender', function() {
+  return browserify({
+    entries: './src/js/sender.js',
+    paths: [ './node_modules', './src/js/sender' ],
+    transform: [babelify]
+  })
+  .bundle()
   .on('error', swallowError)
-  .pipe(gulp.dest('public/js'));
+  .pipe(source('./public/js/sender.js'))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('build-receiver', function() {
+  return browserify({
+    entries: './src/js/receiver.js',
+    paths: [ './node_modules', './src/js/receiver' ],
+    transform: [babelify]
+  })
+  .bundle()
+  .on('error', swallowError)
+  .pipe(source('./public/js/receiver.js'))
+  .pipe(gulp.dest('./'));
 });
 
 gulp.task('less', function() {

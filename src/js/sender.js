@@ -1,3 +1,10 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Sender from 'components/sender.jsx';
+
+import { setSession } from 'helpers/chromecast.js';
+
 const CAST_API_INITIALIZATION_DELAY = 1000;
 const APP_ID = 'E5754F81';
 const APP_NAMESPACE = 'urn:x-cast:castit';
@@ -34,10 +41,11 @@ function onStopAppSuccess() {
  * session listener during initialization
  */
 function sessionListener(e) {
-  console.log(`New session ID: ${e.sessionId}`);
   session = e;
+  console.log(`New session ID: ${session.sessionId}`);
   session.addUpdateListener(sessionUpdateListener);
   session.addMessageListener(APP_NAMESPACE, receiverMessage);
+  setSession(session);
 }
 
 /**
@@ -48,7 +56,7 @@ function sessionUpdateListener(isAlive) {
   message += `: ${session.sessionId}`;
   console.log(message);
   if (!isAlive) {
-    session = null;
+    setSession(session = null);
   }
 };
 
@@ -80,26 +88,7 @@ function stopApp() {
   session.stop(onStopAppSuccess, onError);
 }
 
-/**
- * send a message to the receiver using the custom namespace
- * receiver CastMessageBus message handler will be invoked
- * @param {string} message A message string
- */
-function sendMessage(message) {
-  if (session != null) {
-    session.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
-  }
-  else {
-    chrome.cast.requestSession(function(e) {
-        session = e;
-        session.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
-      }, onError);
-  }
-}
-
-/**
- * utility function to handle text typed in by user in the input field
- */
-function update() {
-  sendMessage(document.getElementById('input').value);
-}
+window.onload = function () {
+  const contentAnchor = document.getElementById('content-anchor');
+  ReactDOM.render(<Sender />, contentAnchor);
+};

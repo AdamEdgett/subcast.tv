@@ -27,7 +27,7 @@ window.onload = function() {
   };
 
   // create a CastMessageBus to handle messages for a custom namespace
-  window.messageBus = window.castReceiverManager.getCastMessageBus(APP_NAMESPACE);
+  window.messageBus = window.castReceiverManager.getCastMessageBus(APP_NAMESPACE, cast.receiver.CastMessageBus.MessageType.JSON);
   window.messageBus.onMessage = function(event) {
     console.log(`Message [${event.senderId}]: ${event.data}`);
     // display the message from the sender
@@ -42,12 +42,11 @@ window.onload = function() {
   console.log('Receiver Manager started');
 };
 
-function getYoutubeUrl(videoId) {
-  return `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0"></iframe>`;
+function getYoutubeUrl(videoInfo) {
+  return `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoInfo.videoId}?autoplay=1" frameborder="0"></iframe>`;
 };
 
-function updateVideo(videoId) {
-  console.log(videoId);
-  document.getElementById("content").innerHTML = getYoutubeUrl(videoId);
-  window.castReceiverManager.setApplicationState(videoId);
+function updateVideo(videoInfo) {
+  document.getElementById("content").innerHTML = getYoutubeUrl(videoInfo);
+  window.castReceiverManager.setApplicationState(videoInfo.videoId);
 };
