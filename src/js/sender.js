@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { pluck, filter } from 'underscore';
+import { camelizeKeys } from 'humps';
 
 import Sender from 'components/sender.jsx';
 
 import { setSession } from 'helpers/chromecast.js';
+import getSubredditLinks from 'helpers/get_subreddit_links.js';
 
 const CAST_API_INITIALIZATION_DELAY = 1000;
 const APP_ID = 'E5754F81';
@@ -88,7 +91,18 @@ function stopApp() {
   session.stop(onStopAppSuccess, onError);
 }
 
+function handleSubredditLinks(resp) {
+  const links = camelizeKeys(pluck(resp.data.children, 'data'));
+  const videos = filter(links, (link) => link.domain === 'youtube.com');
+  const contentAnchor = document.getElementById('content-anchor');
+  ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
+}
+
+function handleSubredditChange(request) {
+  getSubredditLinks(request, handleSubredditLinks);
+}
+
 window.onload = function () {
   const contentAnchor = document.getElementById('content-anchor');
-  ReactDOM.render(<Sender />, contentAnchor);
+  ReactDOM.render(<Sender onSubredditChange={handleSubredditChange} />, contentAnchor);
 };

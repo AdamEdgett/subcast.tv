@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { map } from 'underscore';
 
 import { sendMessage } from 'helpers/chromecast.js';
 import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
 
+import SubredditPicker from 'components/subreddit_picker.jsx';
+import Video from 'components/video.jsx';
+
+const propTypes = {
+  videos: PropTypes.arrayOf(
+    PropTypes.shape(Video.propTypes)
+  ),
+  onSubredditChange: PropTypes.func
+};
+
 class Sender extends Component {
-  handleView() {
-    const url = this.refs.videoInput.value;
+  handleViewVideo(url) {
     const query = parseYoutubeUrl(url);
-    console.log(query);
-    console.log(query.videoId);
     sendMessage(query);
   }
 
   render() {
+    const { videos, onSubredditChange } = this.props;
+    const renderedVideos = map(videos, (video) => {
+      return <Video key={video.id} {...video} onViewVideo={this.handleViewVideo} />;
+    });
+
     return (
       <div className="sender">
-        <label htmlFor="input">Video ID:</label>
-        <input id="input" type="text" size="30" ref="videoInput" />
-        <button onClick={this.handleView.bind(this)}>View</button>
+        <SubredditPicker onSubredditChange={onSubredditChange} />
+        {renderedVideos}
       </div>
     );
   }
 }
+
+Sender.propTypes = propTypes;
 
 export default Sender;
