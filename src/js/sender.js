@@ -93,7 +93,7 @@ function stopApp() {
 
 function handleSubredditLinks(resp) {
   const links = camelizeKeys(pluck(resp.data.children, 'data'));
-  const videos = filter(links, (link) => link.domain === 'youtube.com');
+  const videos = filter(links, (link) => link.domain === 'youtube.com' || link.domain === 'youtu.be');
   const contentAnchor = document.getElementById('content-anchor');
   ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
 }
