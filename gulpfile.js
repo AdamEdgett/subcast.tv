@@ -46,8 +46,10 @@ gulp.task('build-receiver', function() {
 });
 
 gulp.task('less', function() {
-  return gulp.src(paths.less)
-  .pipe(less())
+  return gulp.src([ 'src/less/sender.less', 'src/less/receiver.less' ])
+  .pipe(less({
+    paths: [ 'src/less' ]
+  }))
   .on('error', swallowError)
   .pipe(minifyCSS())
   .pipe(gulp.dest('public/css'));
