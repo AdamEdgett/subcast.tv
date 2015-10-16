@@ -1,9 +1,28 @@
+@import 'colors';
+@import 'sender/video';
+@import 'sender/subreddit_picker';
+
+@theme-color: @light-blue-100;
+
+body {
+  background-color: @blue-grey-100;
+  font-family: Roboto, sans-serif;
+}
+
 .sender {
-  .video {
-    a {
-      color: blue;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+  margin: 0 auto;
+  width: 700px;
+
+  .card {
+    background-color: @white;
+    box-shadow: 0 -1px 0 @grey-300, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
+    margin: 10px;
+  }
+
+  .content {
+    padding: 15px 22px;
+    display: block;
+    vertical-align: top;
+    overflow: hidden;
   }
 }
