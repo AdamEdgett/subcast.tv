@@ -19,15 +19,16 @@ const propTypes = {
 };
 
 class Video extends Component {
-  handleViewVideo(url) {
-    this.props.onViewVideo(url);
+  handleViewVideo() {
+    const { url, onViewVideo } = this.props;
+    onViewVideo(url);
   }
 
   render() {
     const { id, url, title } = this.props;
     return (
-      <div className="video" key={id}>
-        <a onClick={partial(this.handleViewVideo, url)}>{title}</a>
+      <div className="video card" key={id}>
+        <a className="content" onClick={this.handleViewVideo.bind(this)}>{title}</a>
       </div>
     );
   }
