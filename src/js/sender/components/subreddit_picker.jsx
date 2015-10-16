@@ -40,8 +40,8 @@ class SubredditPicker extends Component {
 
     let timeSelector;
     if (sort === 'top' || sort === 'controversial') {
-      const renderedTimes = map(sortTimes, (time) => {
-        return <option value={time} key={time}>{time}</option>;
+      const renderedTimes = map(sortTimes, (timeLabel, time) => {
+        return <option value={time} key={time}>{timeLabel}</option>;
       });
 
       timeSelector = [
