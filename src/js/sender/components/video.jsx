@@ -24,11 +24,32 @@ class Video extends Component {
     onViewVideo(url);
   }
 
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
   render() {
-    const { id, url, title } = this.props;
+    const { id, url, title, thumbnail, permalink } = this.props;
     return (
-      <div className="video card" key={id}>
-        <a className="content" onClick={this.handleViewVideo.bind(this)}>{title}</a>
+      <div className="video card" key={id} onClick={this.handleViewVideo.bind(this)}>
+        <div className="thumbnail-container">
+          <div className="thumbnail">
+            <img src={thumbnail} />
+          </div>
+        </div>
+        <div className="content">
+          <span className="title">{title}</span>
+          <div className="info">
+            <a
+              className="comments"
+              target="_blank"
+              href={`http://reddit.com${permalink}`}
+              onClick={this.stopPropagation}
+            >
+              Comments
+            </a>
+          </div>
+        </div>
       </div>
     );
   }

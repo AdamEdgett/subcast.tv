@@ -1,6 +1,4 @@
 @import 'colors';
-@import 'sender/video';
-@import 'sender/subreddit_picker';
 
 @theme-color: @light-blue-100;
 
@@ -10,6 +8,9 @@ body {
 }
 
 .sender {
+  @import 'sender/subreddit_picker';
+  @import 'sender/video';
+
   margin: 0 auto;
   width: 700px;
 

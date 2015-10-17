@@ -1,15 +1,64 @@
-.video {
-  a {
-    color: @grey-800;
-    text-decoration: none;
-    cursor: pointer;
+@thumbnailDimension: 70px;
 
-    &:hover {
+.video {
+  display: block;
+  cursor: pointer;
+  min-height: @thumbnailDimension;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: @grey-200;
+
+    .title {
       color: @blue-700;
     }
 
-    &:visited {
-      color: @grey-500;
+    .comments {
+      color: @grey-600;
+    }
+  }
+
+  a {
+    color: @grey-400;
+    text-decoration: none;
+  }
+
+
+  .thumbnail-container {
+    display: inline-block;
+    float: left;
+
+    .thumbnail {
+      padding: 0;
+      width: @thumbnailDimension;
+      height: @thumbnailDimension;
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+
+      img {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .title {
+    transition: color 0.3s ease;
+    color: @grey-800;
+  }
+
+  .info {
+    font-size: 0.9rem;
+    color: @grey-400;
+
+    .comments {
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: @theme-color;
+      }
     }
   }
 }
