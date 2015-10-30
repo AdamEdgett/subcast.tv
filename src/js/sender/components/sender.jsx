@@ -28,8 +28,15 @@ class Sender extends Component {
 
     return (
       <div className="sender">
-        <SubredditPicker onSubredditChange={onSubredditChange} />
-        {renderedVideos}
+        <div className="nav">
+          <div className="navbar">
+            <span className="logo">Castit</span>
+            <SubredditPicker onSubredditChange={onSubredditChange} />
+          </div>
+        </div>
+        <div className="videos">
+          {renderedVideos}
+        </div>
       </div>
     );
   }

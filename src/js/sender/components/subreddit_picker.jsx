@@ -54,27 +54,38 @@ class SubredditPicker extends Component {
         return <option value={time} key={time}>{timeLabel}</option>;
       });
 
-      timeSelector = [
-        <label key="label" htmlFor="time-input">Time:</label>,
-        <select key="select" value={time} onChange={this.changeTime.bind(this)}>
-          {renderedTimes}
-        </select>
-      ];
+      timeSelector = (
+        <li>
+          <label htmlFor="time-input">Time:</label>,
+          <select value={time} onChange={this.changeTime.bind(this)}>
+            {renderedTimes}
+          </select>
+        </li>
+      );
     }
 
     return (
       <div className="subreddit-picker">
-        <label htmlFor="subreddit-input">Subreddit:</label>
-        <input type="text" ref="subredditInput" />
-        <label htmlFor="sort-input">Sort:</label>
-        <select value={sort} onChange={this.changeSort.bind(this)}>
-          {renderedSorts}
-        </select>
-        {timeSelector}
-        <select value={count} onChange={this.changeCount.bind(this)}>
-          {renderedCounts}
-        </select>
-        <button onClick={this.handleView.bind(this)}>View</button>
+        <ul>
+          <li>
+            <input type="text" ref="subredditInput" placeholder="Subreddit" />
+          </li>
+          <li>
+            <label htmlFor="sort-input">Sort:</label>
+            <select value={sort} onChange={this.changeSort.bind(this)}>
+              {renderedSorts}
+            </select>
+          </li>
+          {timeSelector}
+          <li>
+            <select value={count} onChange={this.changeCount.bind(this)}>
+              {renderedCounts}
+            </select>
+          </li>
+          <li>
+            <button onClick={this.handleView.bind(this)}>View</button>
+          </li>
+        </ul>
       </div>
     );
   }
