@@ -28,7 +28,7 @@ class SubredditPicker extends Component {
   }
 
   changeCount(event) {
-    this.setState({ count: parseInt(event.target.value) });
+    this.setState({ count: parseInt(event.target.value, 10) });
   }
 
   handleView() {

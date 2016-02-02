@@ -11,7 +11,7 @@ const propTypes = {
   videos: PropTypes.arrayOf(
     PropTypes.shape(Video.propTypes)
   ),
-  onSubredditChange: PropTypes.func
+  onSubredditChange: PropTypes.func,
 };
 
 class Sender extends Component {

@@ -8,6 +8,8 @@ import Sender from 'components/sender.jsx';
 import { setSession } from 'helpers/chromecast.js';
 import getSubredditLinks from 'helpers/get_subreddit_links.js';
 
+const chrome = window.chrome;
+
 const CAST_API_INITIALIZATION_DELAY = 1000;
 const APP_ID = 'E5754F81';
 const APP_NAMESPACE = 'urn:x-cast:castit';
@@ -102,7 +104,7 @@ function handleSubredditChange(request) {
   getSubredditLinks(request, handleSubredditLinks);
 }
 
-window.onload = function () {
+window.onload = function onLoad() {
   const contentAnchor = document.getElementById('content-anchor');
   ReactDOM.render(<Sender onSubredditChange={handleSubredditChange} />, contentAnchor);
 };

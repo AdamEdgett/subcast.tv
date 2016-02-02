@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { partial } from 'underscore';
 
 const propTypes = {
   domain: PropTypes.string,
@@ -29,7 +28,7 @@ class Video extends Component {
   }
 
   render() {
-    const { id, url, title, thumbnail, permalink } = this.props;
+    const { id, title, thumbnail, permalink } = this.props;
     return (
       <div className="video card" key={id} onClick={this.handleViewVideo.bind(this)}>
         <div className="thumbnail-container">
