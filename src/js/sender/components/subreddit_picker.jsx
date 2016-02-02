@@ -45,19 +45,19 @@ class SubredditPicker extends Component {
   }
 
   render() {
-    const { subreddit, sort, time, count } = this.state;
-    const renderedSorts = map(sorts, (sort) => {
-      return <option value={sort} key={sort}>{sort}</option>;
+    const { sort, time, count } = this.state;
+    const renderedSorts = map(sorts, (sortValue) => {
+      return <option value={sortValue} key={sortValue}>{sortValue}</option>;
     });
 
-    const renderedCounts = map(counts, (count) => {
-      return <option value={count} key={count}>{count}</option>
+    const renderedCounts = map(counts, (countValue) => {
+      return <option value={countValue} key={countValue}>{countValue}</option>;
     });
 
     let timeSelector;
     if (sort === 'top' || sort === 'controversial') {
-      const renderedTimes = map(sortTimes, (timeLabel, time) => {
-        return <option value={time} key={time}>{timeLabel}</option>;
+      const renderedTimes = map(sortTimes, (timeLabel, timeValue) => {
+        return <option value={timeValue} key={timeValue}>{timeLabel}</option>;
       });
 
       timeSelector = (
