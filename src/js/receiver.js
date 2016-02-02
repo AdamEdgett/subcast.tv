@@ -3,7 +3,7 @@ const APP_NAMESPACE = 'urn:x-cast:castit';
 const { cast } = window;
 
 function getYoutubeUrl(videoInfo) {
-  const src = `https://www.youtube.com/embed/${videoInfo.videoId}?autoplay=1`;
+  const src = `https://www.youtube.com/embed/${videoInfo.videoId}?autoplay=1&controls=0&showinfo=0&rel=0`;
   return `<iframe width="100%" height="100%" src="${src}" frameborder="0"></iframe>`;
 }
 
