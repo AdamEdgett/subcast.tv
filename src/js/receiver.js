@@ -1,14 +1,27 @@
 const APP_NAMESPACE = 'urn:x-cast:castit';
 
 const { cast } = window;
+let player;
 
-function getYoutubeUrl(videoInfo) {
-  const src = `https://www.youtube.com/embed/${videoInfo.videoId}?autoplay=1&controls=0&showinfo=0&rel=0`;
-  return `<iframe width="100%" height="100%" src="${src}" frameborder="0"></iframe>`;
+function createPlayer(onPlayerReady) {
+  player = new window.YT.Player('content', {
+    height: '100%',
+    width: '100%',
+    playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0 },
+    events: {
+      'onReady': onPlayerReady,
+    },
+  });
+  window.player = player;
 }
 
 function updateVideo(videoInfo) {
-  document.getElementById('content').innerHTML = getYoutubeUrl(videoInfo);
+  const onPlayerReady = () => { player.loadVideoById(videoInfo.videoId); };
+  if (!player) {
+    createPlayer(onPlayerReady);
+  } else {
+    onPlayerReady();
+  }
   window.castReceiverManager.setApplicationState(videoInfo.videoId);
 }
 
