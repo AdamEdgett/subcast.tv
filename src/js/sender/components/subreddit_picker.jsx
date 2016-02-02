@@ -19,6 +19,12 @@ class SubredditPicker extends Component {
     };
   }
 
+  handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      this.handleView();
+    }
+  }
+
   changeSort(event) {
     this.setState({ sort: event.target.value });
   }
@@ -68,7 +74,12 @@ class SubredditPicker extends Component {
       <div className="subreddit-picker">
         <ul>
           <li>
-            <input type="text" ref="subredditInput" placeholder="Subreddit" />
+            <input
+              type="text"
+              ref="subredditInput"
+              placeholder="Subreddit"
+              onKeyDown={this.handleKeyDown.bind(this)}
+            />
           </li>
           <li>
             <label htmlFor="sort-input">Sort:</label>
