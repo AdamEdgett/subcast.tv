@@ -18,19 +18,26 @@ const propTypes = {
 };
 
 class Video extends Component {
-  handleViewVideo() {
+  handleViewVideo(event) {
+    event.preventDefault();
+
     const { url, onViewVideo } = this.props;
     onViewVideo(url);
   }
 
-  stopPropagation(event) {
+  handleCommentsClick(event) {
     event.stopPropagation();
+    event.preventDefault();
+
+    const { permalink } = this.props;
+    const url = `http://reddit.com${permalink}`;
+    window.open(url, '_blank');
   }
 
   render() {
-    const { id, title, thumbnail, permalink } = this.props;
+    const { id, title, thumbnail, url } = this.props;
     return (
-      <div className="video card" key={id} onClick={this.handleViewVideo.bind(this)}>
+      <a className="video card" key={id} onClick={this.handleViewVideo.bind(this)} href={`/#${url}`}>
         <div className="thumbnail-container">
           <div className="thumbnail">
             <img src={thumbnail} />
@@ -39,17 +46,12 @@ class Video extends Component {
         <div className="content">
           <span className="title">{title}</span>
           <div className="info">
-            <a
-              className="comments"
-              target="_blank"
-              href={`http://reddit.com${permalink}`}
-              onClick={this.stopPropagation}
-            >
+            <div className="comments" onClick={this.handleCommentsClick.bind(this)}>
               Comments
-            </a>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     );
   }
 }

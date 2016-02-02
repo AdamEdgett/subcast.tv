@@ -3,8 +3,17 @@
 .video {
   display: block;
   cursor: pointer;
+  text-decoration: none;
   min-height: @thumbnailDimension;
   transition: background-color 0.3s ease;
+
+  &:visited {
+    background-color: @grey-300;
+
+    .title {
+      color: @grey-700;
+    }
+  }
 
   &:hover {
     background-color: @grey-200;
