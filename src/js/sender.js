@@ -1,110 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { pluck, filter } from 'underscore';
+import { partial, pluck, filter } from 'underscore';
 import { camelizeKeys } from 'humps';
 
 import Sender from 'components/sender.jsx';
 
-import { setSession } from 'helpers/chromecast.js';
+import { initializeApi } from 'helpers/chromecast.js';
 import getSubredditLinks from 'helpers/get_subreddit_links.js';
 
 const chrome = window.chrome;
+let component;
 
 const CAST_API_INITIALIZATION_DELAY = 1000;
-const APP_ID = 'E5754F81';
-const APP_NAMESPACE = 'urn:x-cast:castit';
 
-let session;
+function handleSessionChange() {
+  console.log('sessioncb');
+  const contentAnchor = document.getElementById('content-anchor');
+  component = ReactDOM.render(<Sender {...component.props} />, contentAnchor);
+}
 
 if (!chrome.cast || !chrome.cast.isAvailable) {
-  setTimeout(initializeCastApi, CAST_API_INITIALIZATION_DELAY);
-}
-
-function initializeCastApi() {
-  const sessionRequest = new chrome.cast.SessionRequest(APP_ID);
-  const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
-  chrome.cast.initialize(apiConfig, onInitSuccess, onError);
-}
-
-function onInitSuccess() {
-  console.log('onInitSuccess');
-}
-
-function onError(message) {
-  console.log(`onError: ${JSON.stringify(message)}`);
-}
-
-function onSuccess(message) {
-  console.log(`onSuccess: ${message}`);
-}
-
-function onStopAppSuccess() {
-  console.log('onStopAppSuccess');
-}
-
-/**
- * session listener during initialization
- */
-function sessionListener(e) {
-  session = e;
-  console.log(`New session ID: ${session.sessionId}`);
-  session.addUpdateListener(sessionUpdateListener);
-  session.addMessageListener(APP_NAMESPACE, receiverMessage);
-  setSession(session);
-}
-
-/**
- * listener for session updates
- */
-function sessionUpdateListener(isAlive) {
-  let message = isAlive ? 'Session Updated' : 'Session Removed';
-  message += `: ${session.sessionId}`;
-  console.log(message);
-  if (!isAlive) {
-    setSession(session = null);
-  }
-};
-
-/**
- * utility function to log messages from the receiver
- * @param {string} namespace The namespace of the message
- * @param {string} message A message string
- */
-function receiverMessage(namespace, message) {
-  console.log(`receiverMessage: ${namespace}, ${message}`);
-};
-
-/**
- * receiver listener during initialization
- */
-function receiverListener(e) {
-  if( e === 'available' ) {
-    console.log('receiver found');
-  }
-  else {
-    console.log('receiver list empty');
-  }
-}
-
-/**
- * stop app/session
- */
-function stopApp() {
-  session.stop(onStopAppSuccess, onError);
-}
-
-function handleSubredditLinks(resp) {
-  const links = camelizeKeys(pluck(resp.data.children, 'data'));
-  const videos = filter(links, (link) => link.domain === 'youtube.com' || link.domain === 'youtu.be');
-  const contentAnchor = document.getElementById('content-anchor');
-  ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
+  setTimeout(partial(initializeApi, handleSessionChange), CAST_API_INITIALIZATION_DELAY);
 }
 
 function handleSubredditChange(request) {
   getSubredditLinks(request, handleSubredditLinks);
 }
 
+function handleSubredditLinks(resp) {
+  const links = camelizeKeys(pluck(resp.data.children, 'data'));
+  const videos = filter(links, (link) => link.domain === 'youtube.com' || link.domain === 'youtu.be');
+  const contentAnchor = document.getElementById('content-anchor');
+  component = ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
+}
+
 window.onload = function onLoad() {
   const contentAnchor = document.getElementById('content-anchor');
-  ReactDOM.render(<Sender onSubredditChange={handleSubredditChange} />, contentAnchor);
+  component = ReactDOM.render(<Sender onSubredditChange={handleSubredditChange} />, contentAnchor);
 };
