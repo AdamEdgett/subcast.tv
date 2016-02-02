@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'underscore';
 
-import { sendMessage } from 'helpers/chromecast.js';
+import { sendMessage, isConnected } from 'helpers/chromecast.js';
 import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
 
 import SubredditPicker from 'components/subreddit_picker.jsx';
@@ -22,6 +22,17 @@ class Sender extends Component {
 
   render() {
     const { videos, onSubredditChange } = this.props;
+
+    if (!isConnected()) {
+      return (
+        <div className="sender">
+          <div className="disconnected-overlay">
+            Disconnected
+          </div>
+        </div>
+      );
+    }
+
     const renderedVideos = map(videos, (video) => {
       return <Video key={video.id} {...video} onViewVideo={this.handleViewVideo} />;
     });
