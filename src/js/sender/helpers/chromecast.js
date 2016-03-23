@@ -65,6 +65,13 @@ function sessionListener(event) {
   sessionCallback(session);
 }
 
+function requestSession(callback) {
+  chrome.cast.requestSession((newSession) => {
+    sessionListener(newSession);
+    if (callback) callback(session);
+  }, onError);
+}
+
 /**
  * receiver listener during initialization
  */
@@ -92,11 +99,9 @@ function sendMessage(message) {
   if (session !== null) {
     session.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
   } else {
-    chrome.cast.requestSession(
-      (session) => {
-        session.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
-      },
-      onError);
+    requestSession((newSession) => {
+      newSession.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
+    });
   }
 }
 
@@ -104,4 +109,4 @@ function isConnected() {
   return session && session.receiver;
 }
 
-export { initializeApi, stopApp, setSession, sendMessage, isConnected };
+export { initializeApi, requestSession, stopApp, setSession, sendMessage, isConnected };

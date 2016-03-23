@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'underscore';
 
-import { sendMessage, isConnected } from 'helpers/chromecast.js';
+import { requestSession, sendMessage, isConnected } from 'helpers/chromecast.js';
 import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
 
 import SubredditPicker from 'components/subreddit_picker.jsx';
@@ -22,14 +22,28 @@ class Sender extends Component {
     sendMessage(query);
   }
 
+  handleConnectClick() {
+    requestSession();
+  }
+
   render() {
     const { videos, onSubredditChange } = this.props;
 
     if (!isConnected()) {
       return (
         <div className="sender">
-          <div className="disconnected-overlay">
-            Disconnected
+          <div className="disconnected-overlay" onClick={this.handleConnectClick}>
+            <div className="container">
+            <div className="content">
+              <img src="/img/cast.svg" />
+              <div className="title">
+                Disconnected
+                <div className="subtitle">
+                  Click to connect to a Chromecast
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       );
