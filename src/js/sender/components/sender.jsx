@@ -17,8 +17,8 @@ const propTypes = {
 class Sender extends Component {
   handleViewVideo(url) {
     const query = parseYoutubeUrl(url);
-    window.history.pushState(null, null, `/#${url}`);
-    window.history.pushState(null, null, '/');
+    window.history.replaceState(null, null, `/#${url}`);
+    window.history.replaceState(null, null, '/');
     sendMessage(query);
   }
 
