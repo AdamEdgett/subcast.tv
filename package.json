@@ -7,30 +7,59 @@
   "license": "MIT",
   "homepage": "https://github.com/AdamEdgett/castit",
   "scripts": {
+    "start": "http-server",
+    "start-dev": "npm start & npm run watch",
+    "build": "npm run build-js && npm run build-less",
+    "build-js": "npm run build-sender && npm run build-receiver",
+    "build-sender": "NODE_PATH=node_modules:src/js/sender browserify src/js/sender.js -o public/js/sender.js",
+    "build-receiver": "NODE_PATH=node_modules:src/js/receiver browserify src/js/receiver.js -o public/js/receiver.js",
+    "build-less": "npm run build-sender-less && npm run build-receiver-less",
+    "build-sender-less": "lessc --include-path=node_modules:src/less src/less/sender.less public/css/sender.css --verbose",
+    "build-receiver-less": "lessc --include-path=node_modules:src/less src/less/receiver.less public/css/receiver.css --verbose",
+    "watch": "npm run watch-js & npm run watch-less",
+    "watch-js": "npm run watch-sender & npm run watch-receiver",
+    "watch-sender": "NODE_PATH=node_modules:src/js/sender watchify src/js/sender.js -o public/js/sender.js -dv",
+    "watch-receiver": "NODE_PATH=node_modules:src/js/receiver watchify src/js/receiver.js -o public/js/receiver.js -dv",
+    "watch-less": "watch 'npm run -s build-less' 'src/less/'",
+    "watch-sender-less": "watch 'lessc --include-path=node_modules:src/less src/less/sender.less public/css/sender.css --verbose' 'src/less/'",
+    "watch-receiver-less": "watch 'lessc --include-path=node_modules:src/less src/less/receiver.less public/css/receiver.css --verbose' 'src/less/'",
+    "clean": "npm run clean-sender && npm run clean-receiver",
+    "clean-sender": "rm -f public/js/sender.js* && rm -f public/css/sender.css*",
+    "clean-receiver": "rm -f public/js/receiver.js* && rm -f public/css/receiver.css*",
+    "minify-js": "npm run minify-sender && npm run minify-receiver",
+    "minify-sender": "uglifyjs public/js/sender.js -o public/js/sender.js",
+    "minify-receiver": "uglifyjs public/js/receiver.js -o public/js/receiver.js",
+    "minify-less": "npm run minify-less-sender && npm run minify-less-receiver",
+    "minify-less-sender": "cleancss public/css/sender.css -o public/css/sender.css",
+    "minify-less-receiver": "cleancss public/css/receiver.css -o public/css/receiver.css",
     "lint": "eslint --ext jsx src/js/*"
   },
   "dependencies": {
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
-    "gulp-connect": "^2.2.0",
-    "gulp-gzip": "^1.2.0",
-    "gulp-less": "^3.0.3",
-    "gulp-minify-css": "^1.2.1",
+    "clean-css": "^3.4.12",
+    "http-server": "^0.9.0",
     "humps": "^1.0.0",
     "less": "^2.5.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "reqwest": "^2.0.4",
+    "uglify-js": "^2.6.2",
     "underscore": "^1.8.3",
     "urijs": "^1.16.1",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watch": "^0.17.1",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
     "eslint": "^1.8.0",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.6.3"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   }
 }
