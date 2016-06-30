@@ -49,6 +49,21 @@
     }
   }
 
+  .score {
+    display: inline-block;
+    float: left;
+    background-color: @grey-50;
+    width: @thumbnailDimension - 20;
+    height: @thumbnailDimension;
+    line-height: @thumbnailDimension;
+
+    .score-value {
+      display: block;
+      text-align: center;
+      color: @grey-500;
+    }
+  }
+
   .title {
     transition: color 0.3s ease;
     color: @grey-800;

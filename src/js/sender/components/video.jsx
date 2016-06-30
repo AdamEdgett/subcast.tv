@@ -35,13 +35,18 @@ class Video extends Component {
   }
 
   render() {
-    const { id, title, thumbnail, url } = this.props;
+    const { id, title, thumbnail, url, score } = this.props;
     return (
       <a className="video card" key={id} onClick={this.handleViewVideo.bind(this)} href={`/#${url}`}>
         <div className="thumbnail-container">
           <div className="thumbnail">
             <img src={thumbnail} />
           </div>
+        </div>
+        <div className="score">
+          <span className="score-value">
+            {score}
+          </span>
         </div>
         <div className="content">
           <span className="title">{title}</span>
