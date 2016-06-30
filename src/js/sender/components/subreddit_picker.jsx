@@ -62,7 +62,7 @@ class SubredditPicker extends Component {
 
       timeSelector = (
         <li>
-          <label htmlFor="time-input">Time:</label>,
+          <label htmlFor="time-input">Time:</label>
           <select value={time} onChange={this.changeTime.bind(this)}>
             {renderedTimes}
           </select>
