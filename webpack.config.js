@@ -2,6 +2,7 @@ const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const extractLess = new ExtractTextPlugin({
   filename: '[name].css',
@@ -80,6 +81,7 @@ module.exports = {
       template: 'src/templates/receiver.ejs',
       chunks: ['receiver'],
     }),
+    new CompressionPlugin(),
   ],
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
   devServer: {
@@ -88,6 +90,7 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    compress: true,
     inline: true,
   },
   stats: 'verbose',
