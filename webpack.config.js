@@ -1,6 +1,7 @@
 const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const extractLess = new ExtractTextPlugin({
   filename: '[name].css',
@@ -69,6 +70,16 @@ module.exports = {
   },
   plugins: [
     extractLess,
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/templates/sender.ejs',
+      chunks: ['sender'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'receiver.html',
+      template: 'src/templates/receiver.ejs',
+      chunks: ['receiver'],
+    }),
   ],
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
   devServer: {
