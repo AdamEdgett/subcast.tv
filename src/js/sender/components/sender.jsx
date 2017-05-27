@@ -57,7 +57,7 @@ class Sender extends Component {
       <div className="sender">
         <div className="nav">
           <div className="navbar">
-            <span className="logo">Castit</span>
+            <span className="logo">Subcast.tv</span>
             <SubredditPicker onSubredditChange={onSubredditChange} />
           </div>
         </div>

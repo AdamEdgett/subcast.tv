@@ -1,6 +1,6 @@
 const chrome = window.chrome;
 const APP_ID = 'E5754F81';
-const APP_NAMESPACE = 'urn:x-cast:castit';
+const APP_NAMESPACE = 'urn:x-cast:subcast';
 let session;
 let sessionCallback;
 

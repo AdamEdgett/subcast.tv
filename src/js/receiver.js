@@ -1,4 +1,4 @@
-const APP_NAMESPACE = 'urn:x-cast:castit';
+const APP_NAMESPACE = 'urn:x-cast:subcast';
 
 const { cast } = window;
 let player;

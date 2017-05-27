@@ -1,11 +1,11 @@
 {
-  "name": "castit",
+  "name": "subcast.tv",
   "version": "0.0.0",
   "description": "Chromecast app for reddit videos",
-  "repository": "https://github.com/AdamEdgett/castit.git",
+  "repository": "https://github.com/AdamEdgett/subcast.tv.git",
   "author": "Adam Edgett <Adam.Edgett@gmail.com> (http://adamedgett.com/)",
   "license": "MIT",
-  "homepage": "https://github.com/AdamEdgett/castit",
+  "homepage": "https://github.com/AdamEdgett/subcast.tv",
   "scripts": {
     "start": "build && http-server",
     "start-dev": "webpack-dev-server",
