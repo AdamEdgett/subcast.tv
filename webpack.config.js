@@ -46,6 +46,13 @@ module.exports = {
       },
 
       {
+        test: /\.ts(x?)$/,
+        include: [path.resolve(__dirname, 'src/js')],
+        exclude: [/node_modules/],
+        loader: 'ts-loader',
+      },
+
+      {
         test: /\.less$/,
         include: [
           path.resolve(__dirname, 'src/less'),
@@ -67,7 +74,7 @@ module.exports = {
       path.resolve(__dirname, './src/js/sender'),
       path.resolve(__dirname, './src/less'),
     ],
-    extensions: ['.js', '.jsx', '.less', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.less', '.json'],
   },
   plugins: [
     extractLess,
