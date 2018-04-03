@@ -7,7 +7,7 @@
   "license": "MIT",
   "homepage": "https://github.com/AdamEdgett/subcast.tv",
   "scripts": {
-    "start": "build && http-server",
+    "start": "yarn build && http-server",
     "start-dev": "webpack-dev-server",
     "build": "webpack -p",
     "lint": "eslint --ext jsx src/js/*"
