@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { map, first } from 'underscore';
 
 import sorts from 'values/sorts.js';
