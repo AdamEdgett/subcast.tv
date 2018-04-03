@@ -19,7 +19,7 @@ class Sender extends Component {
     const query = parseYoutubeUrl(url);
     window.history.replaceState(null, null, `/#${url}`);
     window.history.replaceState(null, null, '/');
-    sendMessage(query);
+    sendMessage('video', query);
   }
 
   handleConnectClick() {

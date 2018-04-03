@@ -1,7 +1,9 @@
+import { reject, isEqual } from 'underscore';
 const APP_NAMESPACE = 'urn:x-cast:subcast';
 
 const { cast } = window;
 let player;
+let queue;
 
 function createPlayer(onPlayerReady) {
   player = new window.YT.Player('content', {
@@ -10,12 +12,14 @@ function createPlayer(onPlayerReady) {
     playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0 },
     events: {
       'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange,
     },
   });
   window.player = player;
 }
 
 function updateVideo(videoInfo) {
+  queue = reject(queue, (queuedVideo) => isEqual(queuedVideo, videoInfo));
   const onPlayerReady = () => { player.loadVideoById(videoInfo.videoId); };
   if (!player) {
     createPlayer(onPlayerReady);
@@ -23,6 +27,16 @@ function updateVideo(videoInfo) {
     onPlayerReady();
   }
   window.castReceiverManager.setApplicationState(videoInfo.videoId);
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === window.YT.PlayerState.ENDED && queue && queue.length > 0) {
+    updateVideo(queue[0]);
+  }
+}
+
+function updateQueue(newQueue) {
+  queue = newQueue;
 }
 
 window.onload = () => {
@@ -55,8 +69,11 @@ window.onload = () => {
   window.messageBus = window.castReceiverManager.getCastMessageBus(APP_NAMESPACE, cast.receiver.CastMessageBus.MessageType.JSON);
   window.messageBus.onMessage = (event) => {
     console.log(`Message [${event.senderId}]: ${event.data}`);
-    // display the message from the sender
-    updateVideo(event.data);
+    if (event.data.type === 'video') {
+      updateVideo(event.data.data);
+    } else if (event.data.type === 'queue') {
+      updateQueue(event.data.data);
+    }
     // inform all senders on the CastMessageBus of the incoming message event
     // sender message listener will be invoked
     window.messageBus.send(event.senderId, event.data);

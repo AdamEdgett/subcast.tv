@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { partial, pluck, filter } from 'underscore';
+import { map, partial, pluck, filter } from 'underscore';
 import { camelizeKeys } from 'humps';
 
 import Sender from 'components/sender.jsx';
 
-import { initializeApi } from 'helpers/chromecast.js';
+import { initializeApi, sendMessage } from 'helpers/chromecast.js';
+import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
 import getSubredditLinks from 'helpers/get_subreddit_links.js';
 
 const chrome = window.chrome;
@@ -31,6 +32,7 @@ function handleSubredditLinks(resp) {
   const links = camelizeKeys(pluck(resp.data.children, 'data'));
   const videos = filter(links, (link) => link.domain === 'youtube.com' || link.domain === 'youtu.be');
   const contentAnchor = document.getElementById('content-anchor');
+  sendMessage('queue', map(videos, (video) => parseYoutubeUrl(video.url)));
   component = ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
 }
 

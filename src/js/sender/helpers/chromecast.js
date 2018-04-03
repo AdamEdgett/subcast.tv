@@ -95,7 +95,8 @@ function initializeApi(initSessionCallback = undefined) {
  * receiver CastMessageBus message handler will be invoked
  * @param {string} message A message string
  */
-function sendMessage(message) {
+function sendMessage(type, data) {
+  const message = { type, data };
   if (session !== null) {
     session.sendMessage(APP_NAMESPACE, message, onSuccess.bind(this, `Message sent: ${message}`), onError);
   } else {
