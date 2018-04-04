@@ -31,6 +31,12 @@
   version "1.8.8"
   resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.8.tgz#510fe1ca5e7fa87fccd405b9a8b566d420bc3d1b"
 
+"@types/urijs@^1.15.37":
+  version "1.15.37"
+  resolved "https://registry.yarnpkg.com/@types/urijs/-/urijs-1.15.37.tgz#42cd9d5af585053e9af5d009d77bfeb6b0b4cfe6"
+  dependencies:
+    "@types/jquery" "*"
+
 JSONStream@^1.0.3:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.2.tgz#c102371b6ec3a7cf3b847ca00c20bb0fce4c6dea"

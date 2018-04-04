@@ -1,54 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import VideoType from "helpers/video_type";
 
-interface VideoProps {
-  domain: string;
-  subreddit: string;
-  subredditId: string;
-  id: string;
-  author: string;
-  numComments: number;
-  score: number;
-  title: string;
-  url: string;
-  name: string;
-  createdUtc: number;
-  permalink: string;
-  thumbnail: string;
+interface VideoProps extends VideoType {
   onViewVideo: (url: string) => void;
 }
 
 class Video extends Component<VideoProps> {
-  handleViewVideo(event: Event) {
+  private handleViewVideo(event: Event) {
     event.preventDefault();
 
     const { id, url, onViewVideo } = this.props;
-    const watched = JSON.parse(localStorage.getItem('watched') || '{}');
+    const watched = JSON.parse(localStorage.getItem("watched") || "{}");
     const updatedWatched = { ...watched, [id]: true };
-    localStorage.setItem('watched', JSON.stringify(updatedWatched));
+    localStorage.setItem("watched", JSON.stringify(updatedWatched));
     onViewVideo(url);
     this.forceUpdate();
   }
 
-  render() {
+  public render(): JSX.Element {
     const { id, title, thumbnail, url, permalink, score } = this.props;
 
     let renderedThumbnail;
-    if (thumbnail === 'nsfw') {
-      renderedThumbnail = <img src='img/nsfw.png' className='thumbnail' />;
-    } else if (thumbnail === 'default') {
-      renderedThumbnail = <img src='img/default.png' className='thumbnail' />;
+    if (thumbnail === "nsfw") {
+      renderedThumbnail = <img src="img/nsfw.png" className="thumbnail" />;
+    } else if (thumbnail === "default") {
+      renderedThumbnail = <img src="img/default.png" className="thumbnail" />;
     } else {
       renderedThumbnail = (
-        <div className='thumbnail'>
+        <div className="thumbnail">
           <img src={thumbnail} />
         </div>
       );
     }
 
-    const watched = JSON.parse(localStorage.getItem('watched') || '{}');
+    const watched = JSON.parse(localStorage.getItem("watched") || "{}");
     let visitedClass;
     if (watched[id]) {
-      visitedClass = 'visited';
+      visitedClass = "visited";
     }
 
     return (
@@ -68,7 +56,7 @@ class Video extends Component<VideoProps> {
               className="comments"
               href={`https://reddit.com${permalink}`}
               target="_blank"
-              onClick={event => event.stopPropogation()}
+              onClick={(event: React.MouseEvent<HTMLElement>) => event.stopPropagation()}
             >
               Comments
             </a>
