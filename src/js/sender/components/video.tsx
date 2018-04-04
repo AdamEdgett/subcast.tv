@@ -21,21 +21,16 @@ class Video extends Component<VideoProps> {
   handleViewVideo(event: Event) {
     event.preventDefault();
 
-    const { url, onViewVideo } = this.props;
+    const { id, url, onViewVideo } = this.props;
+    const watched = JSON.parse(localStorage.getItem('watched') || '{}');
+    const updatedWatched = { ...watched, [id]: true };
+    localStorage.setItem('watched', JSON.stringify(updatedWatched));
     onViewVideo(url);
-  }
-
-  handleCommentsClick(event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    const { permalink } = this.props;
-    const url = `http://reddit.com${permalink}`;
-    window.open(url, '_blank');
+    this.forceUpdate();
   }
 
   render() {
-    const { id, title, thumbnail, url, score } = this.props;
+    const { id, title, thumbnail, url, permalink, score } = this.props;
 
     let renderedThumbnail;
     if (thumbnail === 'nsfw') {
@@ -50,12 +45,17 @@ class Video extends Component<VideoProps> {
       );
     }
 
+    const watched = JSON.parse(localStorage.getItem('watched') || '{}');
+    let visitedClass;
+    if (watched[id]) {
+      visitedClass = 'visited';
+    }
+
     return (
-      <a
-        className="video card"
+      <div
+        className={`video card ${visitedClass}`}
         key={id}
         onClick={this.handleViewVideo.bind(this)}
-        href={`/#${url}`}
       >
         <div className="thumbnail-container">{renderedThumbnail}</div>
         <div className="score">
@@ -64,15 +64,17 @@ class Video extends Component<VideoProps> {
         <div className="content">
           <span className="title">{title}</span>
           <div className="info">
-            <div
+            <a
               className="comments"
-              onClick={this.handleCommentsClick.bind(this)}
+              href={`https://reddit.com${permalink}`}
+              target="_blank"
+              onClick={event => event.stopPropogation()}
             >
               Comments
-            </div>
+            </a>
           </div>
         </div>
-      </a>
+      </div>
     );
   }
 }
