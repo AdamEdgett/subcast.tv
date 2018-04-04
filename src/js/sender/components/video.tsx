@@ -36,6 +36,20 @@ class Video extends Component<VideoProps> {
 
   render() {
     const { id, title, thumbnail, url, score } = this.props;
+
+    let renderedThumbnail;
+    if (thumbnail === 'nsfw') {
+      renderedThumbnail = <img src='img/nsfw.png' className='thumbnail' />;
+    } else if (thumbnail === 'default') {
+      renderedThumbnail = <img src='img/default.png' className='thumbnail' />;
+    } else {
+      renderedThumbnail = (
+        <div className='thumbnail'>
+          <img src={thumbnail} />
+        </div>
+      );
+    }
+
     return (
       <a
         className="video card"
@@ -43,11 +57,7 @@ class Video extends Component<VideoProps> {
         onClick={this.handleViewVideo.bind(this)}
         href={`/#${url}`}
       >
-        <div className="thumbnail-container">
-          <div className="thumbnail">
-            <img src={thumbnail} />
-          </div>
-        </div>
+        <div className="thumbnail-container">{renderedThumbnail}</div>
         <div className="score">
           <span className="score-value">{score}</span>
         </div>
