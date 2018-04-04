@@ -1,0 +1,19 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "array-type": [true, "generic"],
+    "arrow-parens": false,
+    "curly": [true, "ignore-same-line"]
+    "interface-name": false,
+    "member-ordering": false,
+    "no-boolean-literal-compare": true,
+    "no-console": false,
+    "no-duplicate-imports": true,
+    "no-unused-expression": false,
+    "no-unused-variable": true,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "switch-default": true,
+    "trailing-comma": true
+  }
+}
