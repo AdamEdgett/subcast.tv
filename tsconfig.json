@@ -6,6 +6,11 @@
     "lib": ["dom", "es2015", "es2016"],
     "module": "ES2015",
     "moduleResolution": "Node",
+    "paths": {
+      "components/*": ["src/js/sender/components/*"],
+      "values/*": ["src/js/sender/values/*"],
+      "helpers/*": ["src/js/sender/helpers/*"],
+    },
     "noImplicitAny": true,
     "strict": true,
     "strictPropertyInitialization": false,
