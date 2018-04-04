@@ -8,7 +8,11 @@
   transition: background-color 0.3s ease;
 
   &:visited {
-    background-color: @grey-300;
+    background-color: @grey-200;
+
+    .score {
+      background-color: @grey-300;
+    }
 
     .title {
       color: @grey-700;
@@ -16,7 +20,11 @@
   }
 
   &:hover {
-    background-color: @grey-200;
+    background-color: @grey-100;
+
+    .score {
+      background-color: @grey-200;
+    }
 
     .title {
       color: @blue-700;
@@ -40,6 +48,7 @@
       overflow: hidden;
       display: inline-block;
       position: relative;
+      background-color: @white;
 
       img {
         position: relative;
@@ -56,6 +65,7 @@
     width: @thumbnailDimension - 20;
     height: @thumbnailDimension;
     line-height: @thumbnailDimension;
+    transition: background-color 0.3s ease;
 
     .score-value {
       display: block;
