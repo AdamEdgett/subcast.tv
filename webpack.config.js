@@ -93,10 +93,12 @@ module.exports = {
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
   devServer: {
     contentBase: './public',
+    host: '0.0.0.0',
     port: '8080',
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    disableHostCheck: true,
     compress: true,
     inline: true,
   },
