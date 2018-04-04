@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map, first } from 'underscore';
 
-import sorts from 'values/sorts.js';
-import sortTimes from 'values/sort_times.js';
-import counts from 'values/counts.js';
+import sorts from 'values/sorts';
+import sortTimes from 'values/sort_times';
+import counts from 'values/counts';
 
 const propTypes = {
   onSubredditChange: PropTypes.func.isRequired,

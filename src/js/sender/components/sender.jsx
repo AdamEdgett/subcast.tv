@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'underscore';
 
-import { requestSession, sendMessage, isConnected } from 'helpers/chromecast.js';
-import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
+import { requestSession, sendMessage, isConnected } from 'helpers/chromecast';
+import parseYoutubeUrl from 'helpers/parse_youtube_url';
 
-import SubredditPicker from 'components/subreddit_picker.jsx';
-import Video from 'components/video.jsx';
+import SubredditPicker from 'components/subreddit_picker';
+import Video from 'components/video';
 
 const propTypes = {
   videos: PropTypes.arrayOf(

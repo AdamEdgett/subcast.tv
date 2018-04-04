@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { map, partial, pluck, filter } from 'underscore';
 import { camelizeKeys } from 'humps';
 
-import Sender from 'components/sender.jsx';
+import Sender from 'components/sender';
 
-import { initializeApi, sendMessage } from 'helpers/chromecast.js';
-import parseYoutubeUrl from 'helpers/parse_youtube_url.js';
-import getSubredditLinks from 'helpers/get_subreddit_links.js';
+import { initializeApi, sendMessage } from 'helpers/chromecast';
+import parseYoutubeUrl from 'helpers/parse_youtube_url';
+import getSubredditLinks from 'helpers/get_subreddit_links';
 
 const chrome = window.chrome;
 let component;
