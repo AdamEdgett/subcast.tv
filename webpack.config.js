@@ -84,7 +84,7 @@ module.exports = {
       chunks: ['sender'],
     }),
     new HtmlWebpackPlugin({
-      filename: 'receiver.html',
+      filename: 'receiver/index.html',
       template: 'src/templates/receiver.ejs',
       chunks: ['receiver'],
     }),
