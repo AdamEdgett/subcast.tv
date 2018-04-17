@@ -75,6 +75,7 @@ class SubredditPicker extends Component<SubredditPickerProps, SubredditPickerSta
               ref="subredditInput"
               placeholder="Subreddit"
               onKeyDown={this.handleKeyDown.bind(this)}
+              autoFocus
             />
           </li>
           <li>
