@@ -97,11 +97,11 @@ function initializeApi(initSessionCallback: any) {
  */
 function sendMessage(type: string, data: any) {
   const message = { type, data };
-  if (session !== null) {
+  if (session) {
     session.sendMessage(APP_NAMESPACE, message, () => onSuccess(`Message sent: ${message}`), onError);
   } else {
     requestSession((newSession) => {
-      newSession.sendMessage(APP_NAMESPACE, message, () => onSuccess(`Message sent: ${message}`), onError);
+      if (newSession) newSession.sendMessage(APP_NAMESPACE, message, () => onSuccess(`Message sent: ${message}`), onError);
     });
   }
 }
