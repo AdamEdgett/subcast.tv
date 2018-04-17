@@ -1,5 +1,5 @@
 import React from "react";
-import { map } from "underscore";
+import { map, isEmpty } from "underscore";
 
 import { requestSession, sendMessage, isConnected } from "helpers/chromecast";
 import parseYoutubeUrl from "helpers/parse_youtube_url";
@@ -36,6 +36,16 @@ function Sender({ videos, onSubredditChange }: SenderProps): JSX.Element {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isEmpty(videos)) {
+    return (
+      <div className="sender">
+        <div className="subreddit-overlay">
+          <SubredditPicker onSubredditChange={onSubredditChange} />
         </div>
       </div>
     );
