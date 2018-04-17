@@ -1,13 +1,28 @@
+.subreddit-overlay {
+  .subreddit-picker {
+    display: block;
+
+    li {
+      display: block;
+    }
+  }
+}
+
 .subreddit-picker {
-  display: inline-block;
+  flex: 0.7;
 
   ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
     list-style-type: none;
     margin: 0;
+    -webkit-padding-start: 0;
 
     li {
       display: inline;
-      margin: 0 10px;
+      margin: 0 8px;
     }
   }
 
