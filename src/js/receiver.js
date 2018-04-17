@@ -13,6 +13,7 @@ function createPlayer(onPlayerReady) {
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange,
+      'onError': onPlayerError,
     },
   });
   window.player = player;
@@ -31,6 +32,12 @@ function updateVideo(videoInfo) {
 
 function onPlayerStateChange(event) {
   if (event.data === window.YT.PlayerState.ENDED && queue && queue.length > 0) {
+    updateVideo(queue[0]);
+  }
+}
+
+function onPlayerError(event) {
+  if (queue && queue.length > 0) {
     updateVideo(queue[0]);
   }
 }
