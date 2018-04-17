@@ -4,16 +4,14 @@ import { map, first } from "underscore";
 
 import sorts from "values/sorts";
 import sortTimes from "values/sort_times";
-import counts from "values/counts";
 
 interface SubredditPickerProps {
-  onSubredditChange: (subredditChange: { subreddit: string, sort: string, time: string, count: number }) => void;
+  onSubredditChange: (subredditChange: { subreddit: string, sort: string, time: string }) => void;
 }
 
 interface SubredditPickerState {
   sort: string;
   time: string;
-  count: number;
 }
 
 class SubredditPicker extends Component<SubredditPickerProps, SubredditPickerState> {
@@ -22,7 +20,6 @@ class SubredditPicker extends Component<SubredditPickerProps, SubredditPickerSta
     this.state = {
       sort: first(sorts) || "hot",
       time: first(sortTimes as Array<string>) || "hour",
-      count: 25,
     };
   }
 
@@ -40,25 +37,17 @@ class SubredditPicker extends Component<SubredditPickerProps, SubredditPickerSta
     this.setState({ time: event.currentTarget.value });
   }
 
-  private changeCount(event: React.FormEvent<HTMLSelectElement>): void {
-    this.setState({ count: parseInt(event.currentTarget.value, 10) });
-  }
-
   private handleView(): void {
     const { onSubredditChange } = this.props;
     const subreddit = (this.refs.subredditInput as HTMLInputElement).value;
-    const { sort, time, count } = this.state;
-    onSubredditChange({ subreddit, sort, time, count });
+    const { sort, time } = this.state;
+    onSubredditChange({ subreddit, sort, time });
   }
 
   public render(): JSX.Element {
-    const { sort, time, count } = this.state;
+    const { sort, time } = this.state;
     const renderedSorts = map(sorts, (sortValue: string) => {
       return <option value={sortValue} key={sortValue}>{sortValue}</option>;
-    });
-
-    const renderedCounts = map(counts, (countValue: string) => {
-      return <option value={countValue} key={countValue}>{countValue}</option>;
     });
 
     let timeSelector;
@@ -95,11 +84,6 @@ class SubredditPicker extends Component<SubredditPickerProps, SubredditPickerSta
             </select>
           </li>
           {timeSelector}
-          <li>
-            <select value={count} onChange={this.changeCount.bind(this)}>
-              {renderedCounts}
-            </select>
-          </li>
           <li>
             <button onClick={this.handleView.bind(this)}>View</button>
           </li>
