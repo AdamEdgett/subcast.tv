@@ -1,5 +1,6 @@
 import { rest, findIndex, isEqual } from 'underscore';
-const APP_NAMESPACE = 'urn:x-cast:subcast';
+const ENV = process.env.NODE_ENV || "development";
+const APP_NAMESPACE = ENV === "production" ? "urn:x-cast:subcast" : "urn:x-cast:subcast-dev";
 
 const { cast } = window;
 let player;

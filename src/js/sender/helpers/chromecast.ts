@@ -1,6 +1,7 @@
 const chrome = (window as any).chrome;
-const APP_ID = "E5754F81";
-const APP_NAMESPACE = "urn:x-cast:subcast";
+const ENV = process.env.NODE_ENV || "development";
+const APP_ID = ENV === "production" ? "E5754F81" : "1BB93C2D";
+const APP_NAMESPACE = ENV === "production" ? "urn:x-cast:subcast" : "urn:x-cast:subcast-dev";
 let session: any;
 let sessionCallback: (session?: any) => void;
 
