@@ -1,4 +1,4 @@
-import { reject, isEqual } from 'underscore';
+import { rest, findIndex, isEqual } from 'underscore';
 const APP_NAMESPACE = 'urn:x-cast:subcast';
 
 const { cast } = window;
@@ -20,7 +20,7 @@ function createPlayer(onPlayerReady) {
 }
 
 function updateVideo(videoInfo) {
-  queue = reject(queue, (queuedVideo) => isEqual(queuedVideo, videoInfo));
+  queue = rest(queue, findIndex(queue, (queuedVideo) => isEqual(queuedVideo, videoInfo)) + 1);
   const onPlayerReady = () => { player.loadVideoById(videoInfo.videoId); };
   if (!player) {
     createPlayer(onPlayerReady);
