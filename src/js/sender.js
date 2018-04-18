@@ -15,7 +15,6 @@ let component;
 const CAST_API_INITIALIZATION_DELAY = 1000;
 
 function handleSessionChange() {
-  console.log('sessioncb');
   const contentAnchor = document.getElementById('content-anchor');
   component = ReactDOM.render(<Sender {...component.props} />, contentAnchor);
 }
