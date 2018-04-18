@@ -39,3 +39,7 @@ window.onload = function onLoad() {
   const contentAnchor = document.getElementById('content-anchor');
   component = ReactDOM.render(<Sender onSubredditChange={handleSubredditChange} />, contentAnchor);
 };
+
+if (module.hot) {
+  module.hot.accept();
+}

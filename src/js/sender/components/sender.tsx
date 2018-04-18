@@ -1,4 +1,5 @@
 import React from "react";
+import { hot } from "react-hot-loader";
 import { map, isEmpty } from "underscore";
 
 import { requestSession, sendMessage, isConnected } from "helpers/chromecast";
@@ -70,4 +71,4 @@ class Sender extends React.Component<SenderProps> {
   }
 }
 
-export default Sender;
+export default hot(module)(Sender);

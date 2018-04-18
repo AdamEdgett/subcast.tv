@@ -13,11 +13,13 @@ module.exports = {
 
   entry: {
     sender: [
+      'react-hot-loader/patch',
       'babel-polyfill',
       './src/js/sender.js',
       './src/less/sender.less',
     ],
     receiver: [
+      'react-hot-loader/patch',
       'babel-polyfill',
       './src/js/receiver.js',
       './src/less/receiver.less',
@@ -42,6 +44,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: ['env', 'react'],
+          plugins: ['react-hot-loader/babel'],
         },
       },
 
@@ -49,7 +52,16 @@ module.exports = {
         test: /\.ts(x?)$/,
         include: [path.resolve(__dirname, 'src/js')],
         exclude: [/node_modules/],
-        loader: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env', 'react'],
+              plugins: ['react-hot-loader/babel'],
+            },
+          },
+          'ts-loader'
+        ],
       },
 
       {
@@ -101,6 +113,8 @@ module.exports = {
     disableHostCheck: true,
     compress: true,
     inline: true,
+    hot: true,
+    hotOnly: true,
   },
   stats: 'verbose',
 };

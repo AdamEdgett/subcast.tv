@@ -91,3 +91,7 @@ window.onload = () => {
   window.castReceiverManager.start({statusText: 'Application is starting'});
   console.log('Receiver Manager started');
 };
+
+if (module.hot) {
+  module.hot.accept();
+}
