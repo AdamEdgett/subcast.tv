@@ -7,9 +7,9 @@
     "module": "ES2015",
     "moduleResolution": "Node",
     "paths": {
-      "components/*": ["src/js/sender/components/*"],
-      "values/*": ["src/js/sender/values/*"],
-      "helpers/*": ["src/js/sender/helpers/*"],
+      "components/*": ["src/components/*"],
+      "values/*": ["src/values/*"],
+      "helpers/*": ["src/helpers/*"],
     },
     "noImplicitAny": true,
     "strict": true,

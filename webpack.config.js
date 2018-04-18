@@ -15,14 +15,14 @@ module.exports = {
     sender: [
       'react-hot-loader/patch',
       'babel-polyfill',
-      './src/js/sender.js',
-      './src/less/sender.less',
+      './src/sender.js',
+      './src/styles/sender.less',
     ],
     receiver: [
       'react-hot-loader/patch',
       'babel-polyfill',
-      './src/js/receiver.js',
-      './src/less/receiver.less',
+      './src/receiver.js',
+      './src/styles/receiver.less',
     ],
   },
 
@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: [
-          path.resolve(__dirname, 'src/js'),
+          path.resolve(__dirname, 'src'),
         ],
         exclude: [
           /node_modules/,
@@ -50,7 +50,7 @@ module.exports = {
 
       {
         test: /\.ts(x?)$/,
-        include: [path.resolve(__dirname, 'src/js')],
+        include: [path.resolve(__dirname, 'src')],
         exclude: [/node_modules/],
         use: [
           {
@@ -67,7 +67,7 @@ module.exports = {
       {
         test: /\.less$/,
         include: [
-          path.resolve(__dirname, 'src/less'),
+          path.resolve(__dirname, 'src/styles'),
         ],
         use: extractLess.extract({
           use: [
@@ -83,8 +83,8 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve(__dirname, 'node_modules'),
-      path.resolve(__dirname, './src/js/sender'),
-      path.resolve(__dirname, './src/less'),
+      path.resolve(__dirname, './src'),
+      path.resolve(__dirname, './src/styles'),
     ],
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.less', '.json'],
   },
