@@ -30,13 +30,11 @@ class Sender extends React.Component<SenderProps> {
       return (
         <div className="sender">
           <div className="disconnected-overlay" onClick={handleConnectClick}>
-            <div className="container">
-              <div className="content">
-                <img src="/img/cast.svg" />
-                <div className="title">
-                  Disconnected
-                  <div className="subtitle">Click to connect to a Chromecast</div>
-                </div>
+            <div className="content">
+              <img src="/img/cast.svg" />
+              <div className="title">
+                Disconnected
+                <div className="subtitle">Click to connect to a Chromecast</div>
               </div>
             </div>
           </div>

@@ -4,34 +4,30 @@
   background-color: @theme-color;
   color: @white;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .container {
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    margin-left: -200px;
+  .content {
+    text-align: center;
+    vertical-align: middle;
+    width: 400px;
 
-    .content {
-      text-align: center;
+    .title {
+      font-size: 48px;
       vertical-align: middle;
-      width: 400px;
+      display: inline-block;
+      text-align: center;
 
-      .title {
-        font-size: 48px;
-        vertical-align: middle;
-        display: inline-block;
-        text-align: center;
-
-        .subtitle {
-          font-size: 20px;
-        }
+      .subtitle {
+        font-size: 20px;
       }
+    }
 
-      img {
-        width: 50px;
-        vertical-align: middle;
-        margin-right: 10px;
-      }
+    img {
+      width: 50px;
+      vertical-align: middle;
+      margin-right: 10px;
     }
   }
 }
