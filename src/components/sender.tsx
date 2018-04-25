@@ -82,6 +82,7 @@ class Sender extends React.Component<SenderProps, SenderState> {
         <MuiThemeProvider theme={theme}>
           <div className="sender">
             <div className="subreddit-overlay">
+              <img src="/img/subcast-inverted.png" />
               <SubredditPicker onSubredditChange={onSubredditChange} />
             </div>
           </div>
@@ -112,7 +113,9 @@ class Sender extends React.Component<SenderProps, SenderState> {
         <div className="sender">
           <div className="nav">
             <div className="nav-content">
-              <span className="logo">Subcast.tv</span>
+              <div className="logo">
+                <img src="/img/subcast.png" />
+              </div>
               {renderedSubreddit}
             </div>
             <div className={`picker ${pickerExpanded || ""}`}>
