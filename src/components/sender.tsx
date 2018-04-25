@@ -62,6 +62,7 @@ class Sender extends React.Component<SenderProps, SenderState> {
         <MuiThemeProvider theme={theme}>
           <div className="sender">
             <div className="disconnected-overlay" onClick={handleConnectClick}>
+              <img src="/img/subcast-inverted.png" />
               <div className="content">
                 <CastIcon />
                 <div className="title">
