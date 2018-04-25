@@ -11,8 +11,10 @@ body {
   @import 'subreddit_picker';
 
   .subreddit-overlay {
-    background-color: @theme-color;
+    background-color: @white;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     justify-items: center;
     align-items: center;
     width: 100%;
@@ -27,16 +29,35 @@ body {
     color: @white;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 
-    .navbar {
+    .picker {
+      background-color: white;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease;
+
+      &.expanded {
+        height: 60px;
+      }
+    }
+
+    .nav-content {
       display: flex;
+      align-items: center;
       z-index: 20;
       padding: 10px 0;
-      width: 800px;
+      width: 700px;
       margin: 0 auto;
+      justify-content: space-between;
 
       .logo {
-        font-size: 1.5rem;
-        flex: 0.3;
+        img {
+          height: 28px;
+        }
+      }
+
+      .subreddit {
+        cursor: pointer;
+        color: @grey-100;
       }
     }
   }
@@ -44,8 +65,13 @@ body {
   .videos {
     @import 'video';
 
+    &.expanded {
+      padding-top: 115px;
+    }
+
     margin: 0 auto;
     padding-top: 55px;
+    transition: padding-top 0.3s ease;
     width: 700px;
 
     .card {

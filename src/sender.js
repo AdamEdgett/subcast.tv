@@ -24,15 +24,15 @@ if (!chrome.cast || !chrome.cast.isAvailable) {
 }
 
 function handleSubredditChange(request) {
-  getSubredditLinks(request, handleSubredditLinks);
+  getSubredditLinks(request, (resp) => handleSubredditLinks(request.subreddit, resp));
 }
 
-function handleSubredditLinks(resp) {
+function handleSubredditLinks(subreddit, resp) {
   const links = camelizeKeys(pluck(resp.data.children, 'data'));
   const videos = filter(links, (link) => link.domain === 'youtube.com' || link.domain === 'youtu.be');
   const contentAnchor = document.getElementById('content-anchor');
   sendMessage('queue', map(videos, (video) => parseYoutubeUrl(video.url)));
-  component = ReactDOM.render(<Sender videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
+  component = ReactDOM.render(<Sender subreddit={subreddit} videos={videos} onSubredditChange={handleSubredditChange} />, contentAnchor);
 }
 
 window.onload = function onLoad() {
