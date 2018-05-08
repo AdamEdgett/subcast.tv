@@ -95,5 +95,21 @@ body {
       vertical-align: top;
       overflow: hidden;
     }
+
+    .load-more-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      min-height: 70px;
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: @grey-100;
+        color: @blue-700;
+      }
+    }
   }
 }

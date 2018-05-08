@@ -13,6 +13,8 @@ import sortTimes from "values/sort_times";
 
 interface SubredditPickerProps {
   subreddit?: string;
+  sort?: string;
+  time?: string;
   onSubredditChange: (
     subredditChange: { subreddit: string; sort: string; time: string }
   ) => void;
@@ -32,8 +34,8 @@ class SubredditPicker extends Component<
   constructor(props: SubredditPickerProps) {
     super(props);
     this.state = {
-      sort: first(sorts) || "hot",
-      time: first(sortTimes as Array<string>) || "hour"
+      sort: props.sort || first(sorts) || "hot",
+      time: props.time || first(sortTimes as Array<string>) || "hour"
     };
   }
 

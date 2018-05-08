@@ -1,7 +1,7 @@
 import { isEmpty } from 'underscore';
 import reqwest from 'reqwest';
 
-function getSubredditLinks({ subreddit, sort, time }, successHandler) {
+function getSubredditLinks({ subreddit, sort, time, after }, successHandler) {
   let requestUrl = 'https://www.reddit.com/';
   if (!isEmpty(subreddit)) {
     requestUrl += `r/${subreddit}/`;
@@ -17,6 +17,9 @@ function getSubredditLinks({ subreddit, sort, time }, successHandler) {
 
   if (time) {
     data.t = time;
+  }
+  if (after) {
+    data.after = after;
   }
 
   reqwest({

@@ -1,6 +1,6 @@
 import React from "react";
 import { hot } from "react-hot-loader";
-import { map, isEmpty } from "underscore";
+import { map, last, isEmpty } from "underscore";
 
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import CastIcon from "@material-ui/icons/Cast";
@@ -18,8 +18,17 @@ import Video from "components/video";
 
 interface SenderProps {
   subreddit?: string;
-  videos: Array<Video>;
-  onSubredditChange: () => void;
+  sort?: string;
+  time?: string;
+  videos: Array<VideoType>;
+  getLinks: (
+    subredditChange: {
+      subreddit: string;
+      sort: string;
+      time: string;
+      after?: string;
+    }
+  ) => void;
 }
 
 interface SenderState {
@@ -50,7 +59,7 @@ class Sender extends React.Component<SenderProps, SenderState> {
   }
 
   render(): JSX.Element {
-    const { subreddit, videos, onSubredditChange } = this.props;
+    const { subreddit, sort, time, videos, getLinks } = this.props;
     const { expandedNav } = this.state;
 
     const theme = createMuiTheme({
@@ -87,7 +96,7 @@ class Sender extends React.Component<SenderProps, SenderState> {
           <div className="sender">
             <div className="subreddit-overlay">
               <img src="/img/subcast-inverted.png" />
-              <SubredditPicker onSubredditChange={onSubredditChange} />
+              <SubredditPicker onSubredditChange={getLinks} />
             </div>
           </div>
         </MuiThemeProvider>
@@ -114,6 +123,20 @@ class Sender extends React.Component<SenderProps, SenderState> {
       pickerExpanded = "expanded";
     }
 
+    let loadMoreButton;
+    if (subreddit && sort && time && !isEmpty(videos)) {
+      loadMoreButton = (
+        <div
+          className="card load-more-button"
+          onClick={() => {
+            getLinks({ subreddit, sort, time, after: last(videos)!.name });
+          }}
+        >
+          Load more
+        </div>
+      );
+    }
+
     return (
       <MuiThemeProvider theme={theme}>
         <div className="sender">
@@ -128,13 +151,16 @@ class Sender extends React.Component<SenderProps, SenderState> {
               <div className="nav-content">
                 <SubredditPicker
                   subreddit={subreddit}
-                  onSubredditChange={onSubredditChange}
+                  sort={sort}
+                  time={time}
+                  onSubredditChange={getLinks}
                 />
               </div>
             </div>
           </div>
           <div className={`videos ${pickerExpanded || ""}`}>
             {renderedVideos}
+            {loadMoreButton}
           </div>
         </div>
       </MuiThemeProvider>
