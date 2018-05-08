@@ -12,7 +12,7 @@ function getSubredditLinks({ subreddit, sort, time, after }, successHandler) {
   requestUrl += '.json';
 
   const data = {
-    limit: 100
+    limit: 50
   };
 
   if (time) {
