@@ -23,6 +23,8 @@ class Video extends Component<VideoProps> {
     let renderedThumbnail;
     if (thumbnail === "nsfw") {
       renderedThumbnail = <img src="img/nsfw.png" className="thumbnail" />;
+    } else if (thumbnail === "spoiler") {
+      renderedThumbnail = <img src="img/spoiler.png" className="thumbnail" />;
     } else if (thumbnail === "default") {
       renderedThumbnail = <img src="img/default.png" className="thumbnail" />;
     } else {
@@ -56,7 +58,9 @@ class Video extends Component<VideoProps> {
               className="comments"
               href={`https://reddit.com${permalink}`}
               target="_blank"
-              onClick={(event: React.MouseEvent<HTMLElement>) => event.stopPropagation()}
+              onClick={(event: React.MouseEvent<HTMLElement>) =>
+                event.stopPropagation()
+              }
             >
               Comments
             </a>
