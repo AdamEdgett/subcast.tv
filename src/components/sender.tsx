@@ -1,8 +1,11 @@
 import React from "react";
 import { hot } from "react-hot-loader";
 import { map, isEmpty } from "underscore";
+
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import CastIcon from "@material-ui/icons/Cast";
+import RightArrow from "@material-ui/icons/KeyboardArrowRight";
+import DownArrow from "@material-ui/icons/KeyboardArrowDown";
 import deepOrange from "material-ui/colors/deepOrange";
 import indigo from "material-ui/colors/indigo";
 
@@ -97,9 +100,11 @@ class Sender extends React.Component<SenderProps, SenderState> {
 
     let renderedSubreddit;
     if (subreddit) {
+      const arrowIcon = this.state.expandedNav ? <DownArrow /> : <RightArrow />;
       renderedSubreddit = (
         <div className="subreddit" onClick={this.toggleExpandedNav}>
-          {`/r/${subreddit}`}
+          {arrowIcon}
+          <span>{`/r/${subreddit}`}</span>
         </div>
       );
     }
